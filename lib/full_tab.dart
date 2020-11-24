@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:otcui/homeTabPage.dart';
 
 class FullTab extends StatefulWidget {
@@ -8,8 +9,13 @@ class FullTab extends StatefulWidget {
   }
 }
 
-class FullTabState extends State<StatefulWidget> {
+class FullTabState extends State<StatefulWidget>
+    with SingleTickerProviderStateMixin {
   int selected = 0;
+  TabController _tabController;
+  FullTabState() {
+    _tabController = TabController(length: 4, vsync: this);
+  }
   Widget _appBar() {
     return AppBar(
       title: Text("泰达OTC"),
@@ -34,10 +40,25 @@ class FullTabState extends State<StatefulWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: HomeTabPage(),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          HomeTabPage(),
+          Container(
+            child: Text("2"),
+          ),
+          Container(
+            child: Text("3"),
+          ),
+          Container(
+            child: Text("4"),
+          )
+        ],
+      ),
       bottomNavigationBar: BottomTab(selected, (index) {
         setState(() {
           selected = index;
+          _tabController.index = selected;
         });
       }),
     );
