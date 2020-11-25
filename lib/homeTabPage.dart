@@ -128,7 +128,7 @@ class HomeTabPage extends StatelessWidget {
   }
 
   Widget _listCell(String title, String desc) {
-    return Container(
+    var content = Container(
       padding: EdgeInsets.only(top: 10, left: 20),
       child: Column(
         children: [
@@ -188,6 +188,11 @@ class HomeTabPage extends StatelessWidget {
           )
         ],
       ),
+    );
+
+    return FlatButton(
+      child: content,
+      onPressed: () {},
     );
   }
 
